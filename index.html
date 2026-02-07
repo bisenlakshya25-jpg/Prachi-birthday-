@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Birthday Website</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ===== GLOBAL RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+body{
+  overflow:hidden;
+  background:black;
+  font-family: sans-serif;
+}
+
+/* ===== SCENE CONTAINER ===== */
+.scene{
+  width:100vw;
+  height:100vh;
+  display:none;
+}
+.scene.active{
+  display:block;
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+  SCENE 1
+===================================================== -->
+<section class="scene active" id="scene1">
+  <!-- 🔽 SCENE 1 HTML 🔽 -->
+</section>
+
+<!-- =====================================================
+  SCENE 2
+===================================================== -->
+<section class="scene" id="scene2">
+  <!-- 🔽 SCENE 2 HTML 🔽 -->
+</section>
+
+<!-- =====================================================
+  SCENE 3
+===================================================== -->
+<section class="scene" id="scene3">
+  <!-- 🔽 SCENE 3 HTML 🔽 -->
+</section>
+
+<!-- =====================================================
+  SCENE 4
+===================================================== -->
+<section class="scene" id="scene4">
+  <!-- 🔽 SCENE 4 HTML 🔽 -->
+</section>
+
+<!-- =====================================================
+  SCENE 5
+===================================================== -->
+<section class="scene" id="scene5">
+  <!-- 🔽 SCENE 5 HTML 🔽 -->
+</section>
+
+<!-- =====================================================
+  SCENE 6
+===================================================== -->
+<section class="scene" id="scene6">
+  <!-- 🔽 SCENE 6 HTML 🔽 -->
+</section>
+
+<!-- =====================================================
+  ALL SCENE CSS (PASTE BELOW)
+===================================================== -->
+<style>
+/* 🔽 SCENE 1 CSS 🔽 */
+
+/* 🔽 SCENE 2 CSS 🔽 */
+
+/* 🔽 SCENE 3 CSS 🔽 */
+
+/* 🔽 SCENE 4 CSS 🔽 */
+
+/* 🔽 SCENE 5 CSS 🔽 */
+
+/* 🔽 SCENE 6 CSS 🔽 */
+</style>
+
+<!-- =====================================================
+  MASTER + SCENE JS
+===================================================== -->
+<script>
+/* ================= MASTER CONTROLLER ================= */
+
+let currentScene = 1;
+let locked = false;
+
+function goToScene(num){
+  if(locked) return;
+  locked = true;
+
+  document.querySelectorAll('.scene')
+    .forEach(s => s.classList.remove('active'));
+
+  const next = document.getElementById('scene'+num);
+  if(next){
+    next.classList.add('active');
+    currentScene = num;
+    runSceneLogic(num);
+  }
+
+  locked = false;
+}
+
+/* ================= SCENE RUNNER ================= */
+
+function runSceneLogic(num){
+  switch(num){
+    case 1: scene1(); break;
+    case 2: scene2(); break;
+    case 3: scene3(); break;
+    case 4: scene4(); break;
+    case 5: scene5(); break;
+    case 6: scene6(); break;
+  }
+}
+
+/* =====================================================
+  SCENE 1 JS
+  (AUTO → Scene 2 after 3 sec)
+===================================================== */
+function scene1(){
+  /* 🔽 SCENE 1 JS 🔽 */
+
+  setTimeout(()=>{
+    goToScene(2);
+  },3000);
+}
+
+/* =====================================================
+  SCENE 2 JS
+  (AUTO → Scene 3 after 1 sec)
+===================================================== */
+function scene2(){
+  /* 🔽 SCENE 2 JS 🔽 */
+
+  setTimeout(()=>{
+    goToScene(3);
+  },1000);
+}
+
+/* =====================================================
+  SCENE 3 JS
+  (TAP → Scene 4)
+===================================================== */
+function scene3(){
+  /* 🔽 SCENE 3 JS 🔽 */
+
+  const s = document.getElementById("scene3");
+  s.addEventListener("click",()=>{
+    goToScene(4);
+  },{once:true});
+}
+
+/* =====================================================
+  SCENE 4 JS
+  (AUTO → Scene 5 after 3 sec)
+===================================================== */
+function scene4(){
+  /* 🔽 SCENE 4 JS 🔽 */
+
+  setTimeout(()=>{
+    goToScene(5);
+  },3000);
+}
+
+/* =====================================================
+  SCENE 5 JS
+  (TAP or SWIPE → Scene 6)
+===================================================== */
+function scene5(){
+  /* 🔽 SCENE 5 JS 🔽 */
+
+  let startX = 0;
+  const s = document.getElementById("scene5");
+
+  s.addEventListener("touchstart",e=>{
+    startX = e.touches[0].clientX;
+  });
+
+  s.addEventListener("touchend",e=>{
+    const endX = e.changedTouches[0].clientX;
+    if(Math.abs(endX-startX)>50){
+      goToScene(6);
+    }
+  });
+
+  s.addEventListener("click",()=>{
+    goToScene(6);
+  },{once:true});
+}
+
+/* =====================================================
+  SCENE 6 JS (LAST SCENE)
+===================================================== */
+function scene6(){
+  /* 🔽 SCENE 6 JS 🔽 */
+}
+
+/* ================= START ================= */
+runSceneLogic(1);
+</script>
+
+</body>
+</html>
